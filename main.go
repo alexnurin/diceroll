@@ -8,21 +8,21 @@ import (
 )
 
 var (
-	seed = flag.Int("seed", 0, "seed for random generator. unix(now) be default")
+	seed  = flag.Int("seed", -1, "seed for random generator. unix(now) be default")
+	start = flag.Int("start", 1, "min random value")
+	end   = flag.Int("end", 6, "max random value")
 )
 
-// Фукнция должна вернуть число из интервала [l,r]
-//func randInterval
-//	return 0
-//}
+func randInterval(l, r int) int {
+	return rand.Intn(r-l+1) + l
+}
 
 func main() {
 	flag.Parse()
-	if *seed == 0 {
+	if *seed == -1 {
 		rand.Seed(time.Now().Unix())
 	} else {
 		rand.Seed(int64(*seed))
 	}
-	// Dice roll 1..6
-	fmt.Println(rand.Intn(6) + 1)
+	fmt.Println(randInterval(*start, *end))
 }
